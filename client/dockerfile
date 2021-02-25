@@ -1,0 +1,12 @@
+FROM node:latest
+
+WORKDIR /
+
+COPY . .
+
+RUN yarn install
+
+CMD node index.js
+
+EXPOSE 3000
+# create volume for /log

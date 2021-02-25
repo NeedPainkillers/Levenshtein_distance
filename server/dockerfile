@@ -1,0 +1,16 @@
+FROM node:latest
+
+WORKDIR /
+
+COPY . .
+
+RUN yarn install
+
+RUN apt update && apt install atop -y
+
+COPY ./conf/atop /etc/default/atop
+COPY ./conf/atop.daily /usr/share/atop/atop.daily
+
+CMD service atop restart && node index.js
+
+EXPOSE 3000

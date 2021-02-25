@@ -1,0 +1,33 @@
+version: "3.3"
+
+networks:
+  server:
+    ipam:
+      config:
+        - subnet: 172.40.0.0/24
+
+services:
+  server:
+    image: ilin-server
+    networks:
+        server:
+          ipv4_address: 172.40.0.5
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./log:/log"
+      - "./scripts:/scripts"
+    cpus: "0.10"
+    mem_limit: 1024M
+    mem_reservation: 1024M
+
+  client:
+    image: ilin-client
+    networks:
+        server:
+          ipv4_address: 172.40.0.6
+    depends_on:
+      - "server"
+
+    cpus: "0.30"
+    mem_limit: 1024M

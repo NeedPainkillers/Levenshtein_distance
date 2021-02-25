@@ -1,0 +1,1 @@
+docker-compose --compatibility -p delete down
