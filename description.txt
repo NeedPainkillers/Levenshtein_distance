@@ -1,1 +1,46 @@
-TODO: Links to cgroups and namespaces
+Docker runtime options with Memory, CPUs, and GPUs
+	https://docs.docker.com/config/containers/resource_constraints/
+	Memory
+		-m or --memory=	The maximum amount of memory the container can use.
+		If you set this option, the minimum allowed value is 4m (4 megabyte).
+	CPU
+		--cpus=<value>	Specify how much of the available CPU resources a container can use.
+		For instance, if the host machine has two CPUs and you set --cpus="1.5",
+		the container is guaranteed at most one and a half of the CPUs.
+		This is the equivalent of setting --cpu-period="100000" and --cpu-quota="150000".
+
+
+Namespaces
+	https://docs.docker.com/engine/security/userns-remap/
+		Isolate containers with a user namespace
+
+		Linux namespaces provide isolation for running processes, 
+		limiting their access to system resources without the running 
+		process being aware of the limitations. 
+		For more information on Linux namespaces, see Linux namespaces (https://www.linux.com/news/understanding-and-securing-linux-namespaces/).
+
+	https://man7.org/linux/man-pages/man7/namespaces.7.html
+		A namespace wraps a global system resource in an abstraction that
+		makes it appear to the processes within the namespace that they
+		have their own isolated instance of the global resource.  Changes
+		to the global resource are visible to other processes that are
+		members of the namespace, but are invisible to other processes.
+		One use of namespaces is to implement containers.
+
+Control groups
+	https://docs.docker.com/config/containers/runmetrics/
+		Linux Containers rely on control groups which not only track groups of processes,
+		but also expose metrics about CPU, memory, and block I/O usage.
+		You can access those metrics and obtain network usage metrics as well.
+		This is relevant for “pure” LXC containers, as well as for Docker containers.
+		
+	https://www.kernel.org/doc/Documentation/cgroup-v1/cgroups.txt
+		1.2 Why are cgroups needed ?
+		----------------------------
+
+		There are multiple efforts to provide process aggregations in the
+		Linux kernel, mainly for resource-tracking purposes. Such efforts
+		include cpusets, CKRM/ResGroups, UserBeanCounters, and virtual server
+		namespaces. These all require the basic notion of a
+		grouping/partitioning of processes, with newly forked processes ending
+		up in the same group (cgroup) as their parent process.
